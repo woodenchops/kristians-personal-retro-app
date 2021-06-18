@@ -7,11 +7,7 @@ export async function handler(req, res) {
     return res.status(422).json({ message: 'Invalid request' });
   }
 
-  console.log('api req', req);
-
   const session = await getSession({ req });
-
-  console.log('HERE', session);
 
   if (!session) {
     return res.status(401).json({ message: 'Not authenticated' });

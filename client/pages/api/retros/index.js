@@ -1,3 +1,4 @@
+import { getSession } from 'next-auth/client';
 import {
   connectToDatabase,
   insertDocument,
@@ -5,6 +6,14 @@ import {
 } from '../../../helpers/db-util';
 
 async function handler(req, res) {
+  const session = await getSession({ req });
+
+  if (!session) {
+    return res.status(401).json({ message: 'Not authenticated' });
+  }
+
+  const userEmail = session.user.email;
+
   let client;
 
   try {
@@ -41,6 +50,7 @@ async function handler(req, res) {
       improvementsAndReflections,
       tags,
       overallFeeling,
+      user: userEmail,
     };
 
     try {
@@ -72,9 +82,10 @@ async function handler(req, res) {
       });
 
       client.close();
-      return res
-        .status(201)
-        .json({ message: 'Successfully fetched retros!', data: { documents } });
+      return res.status(201).json({
+        message: 'Successfully fetched retros!',
+        response: { documents },
+      });
     } catch (err) {
       return res.status(201).json({ message: 'Failed - Something went wrong' });
     }
