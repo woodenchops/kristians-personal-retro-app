@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNotificationsContextContext } from '../contexts/NotificationContext';
+import Notification from './Notification';
 
 async function sendRetroRequest(retroDetails) {
   const res = await fetch('/api/retros', {
@@ -19,6 +21,15 @@ async function sendRetroRequest(retroDetails) {
 }
 
 function AddRetroForm() {
+  const {
+    requestStatus,
+    setRequestError,
+    requestError,
+    notification,
+    NofiticationMessage,
+    removeNotification,
+  } = useNotificationsContextContext();
+
   const [fieldValues, setFieldValues] = useState({
     title: '',
     overview: '',
@@ -31,8 +42,6 @@ function AddRetroForm() {
     overallFeeling: '',
   });
 
-  const [requestStatus, setRequestStatus] = useState();
-
   const onChangeHandler = (e) => {
     setFieldValues((prevState) => ({
       ...prevState,
@@ -43,11 +52,22 @@ function AddRetroForm() {
   const onSubmitHandler = async (e) => {
     e.preventDefault();
 
-    setRequestStatus('pending');
+    NofiticationMessage({
+      status: 'pending',
+      title: 'Adding retro...',
+      message: 'Two secs...',
+    });
+
+    // setRequestStatus('pending');
 
     try {
       await sendRetroRequest(fieldValues);
-      setRequestStatus('success');
+      // setRequestStatus('success');
+      NofiticationMessage({
+        status: 'success',
+        title: 'Successfully added retro!',
+        message: 'done!',
+      });
 
       setFieldValues({
         title: '',
@@ -61,9 +81,19 @@ function AddRetroForm() {
         overallFeeling: '',
       });
     } catch (error) {
-      setRequestStatus('error');
+      // setRequestStatus('error');
+
+      NofiticationMessage({
+        status: 'error',
+        title: 'Error!',
+        message: requestError,
+      });
     }
   };
+
+  useEffect(() => {
+    removeNotification();
+  }, [requestStatus]);
 
   return (
     <div>
@@ -145,6 +175,14 @@ function AddRetroForm() {
           <button>Send test data</button>
         </div>
       </form>
+
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
     </div>
   );
 }

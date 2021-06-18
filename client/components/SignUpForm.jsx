@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
+import Notification from './Notification';
+import { useNotificationsContextContext } from '../contexts/NotificationContext';
 
 async function sendAddUserRequest(userDetails) {
   const res = await fetch('/api/auth/signup', {
@@ -22,6 +24,18 @@ async function sendAddUserRequest(userDetails) {
 
 function SignUpForm() {
   const router = useRouter();
+
+  const {
+    requestStatus,
+    setRequestError,
+    requestError,
+    notification,
+    NofiticationMessage,
+    removeNotification,
+  } = useNotificationsContextContext();
+
+  // const [requestStatus, setRequestStatus] = useState(); // 'pending', 'success', 'error'
+  // const [requestError, setRequestError] = useState();
 
   const [fieldValues, setFieldValues] = useState({
     name: '',
@@ -50,17 +64,39 @@ function SignUpForm() {
       };
 
       try {
+        // setRequestStatus('pending');
+        NofiticationMessage({
+          status: 'pending',
+          title: 'Signing you up...',
+          message: 'Two secs...',
+        });
         const result = await sendAddUserRequest(newUser);
         await signIn('credentials', {
           ...newUser,
           redirect: false,
         });
+        // setRequestStatus('success');
+        NofiticationMessage({
+          status: 'success',
+          title: 'Signed up!',
+          message: 'done!',
+        });
         router.replace('/profile');
       } catch (err) {
-        console.log(err);
+        setRequestError(err.message);
+
+        NofiticationMessage({
+          status: 'error',
+          title: 'Error!',
+          message: requestError,
+        });
       }
     }
   };
+
+  useEffect(() => {
+    removeNotification();
+  }, [requestStatus]);
 
   return (
     <div className='flex-1 mx-3'>
@@ -106,6 +142,14 @@ function SignUpForm() {
           <button>Sign up</button>
         </div>
       </form>
+
+      {notification && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
     </div>
   );
 }

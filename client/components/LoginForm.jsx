@@ -1,9 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useRouter } from 'next/router';
-import { signIn, useSession } from 'next-auth/client';
+import { signIn } from 'next-auth/client';
+import Notification from './Notification';
+import { useNotificationsContextContext } from '../contexts/NotificationContext';
 
 function LoginForm() {
   const router = useRouter();
+
+  const {
+    requestStatus,
+    setRequestError,
+    requestError,
+    notification,
+    NofiticationMessage,
+    removeNotification,
+  } = useNotificationsContextContext();
+
   const [fieldValues, setFieldValues] = useState({
     email: '',
     password: '',
@@ -18,14 +30,35 @@ function LoginForm() {
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const result = await signIn('credentials', {
-      redirect: false,
-      email: fieldValues.email,
-      password: fieldValues.password,
-    });
 
-    if (!result.error) {
-      router.replace('/profile');
+    try {
+      NofiticationMessage({
+        status: 'pending',
+        title: 'Signing you in...',
+        message: 'Two secs...',
+      });
+      const result = await signIn('credentials', {
+        redirect: false,
+        email: fieldValues.email,
+        password: fieldValues.password,
+      });
+
+      if (!result.error) {
+        NofiticationMessage({
+          status: 'success',
+          title: 'Success!',
+          message: 'Successfully signed up!',
+        });
+        router.replace('/profile');
+      }
+    } catch (err) {
+      setRequestError(err.message);
+
+      NofiticationMessage({
+        status: 'error',
+        title: 'Error!',
+        message: requestError,
+      });
     }
 
     setFieldValues({
@@ -34,34 +67,49 @@ function LoginForm() {
     });
   };
 
-  return (
-    <div className='flex-1 mx-3'>
-      <h2>Already a member? Sign in.</h2>
-      <form className='flex flex-col' onSubmit={onSubmitHandler}>
-        <input
-          className='p-2 my-2 shadow-md'
-          type='email'
-          name='email'
-          placeholder='Email address'
-          value={fieldValues.email}
-          onChange={(e) => onChangeHandler(e)}
-          required
-        />
-        <input
-          className='p-2 my-2 shadow-md'
-          type='password'
-          name='password'
-          placeholder='Enter password'
-          value={fieldValues.password}
-          onChange={(e) => onChangeHandler(e)}
-          required
-        />
-        <div>
-          <button>Sign in</button>
-        </div>
-      </form>
-    </div>
+  useEffect(() => {
+    removeNotification();
+  }, [requestStatus]);
+
+  const content = (
+    <>
+      <div className='flex-1 mx-3'>
+        <h2>Already a member? Sign in.</h2>
+        <form className='flex flex-col' onSubmit={onSubmitHandler}>
+          <input
+            className='p-2 my-2 shadow-md'
+            type='email'
+            name='email'
+            placeholder='Email address'
+            value={fieldValues.email}
+            onChange={(e) => onChangeHandler(e)}
+            required
+          />
+          <input
+            className='p-2 my-2 shadow-md'
+            type='password'
+            name='password'
+            placeholder='Enter password'
+            value={fieldValues.password}
+            onChange={(e) => onChangeHandler(e)}
+            required
+          />
+          <div>
+            <button>Sign in</button>
+          </div>
+        </form>
+        {notification && (
+          <Notification
+            status={notification.status}
+            title={notification.title}
+            message={notification.message}
+          />
+        )}
+      </div>
+    </>
   );
+
+  return <>{content}</>;
 }
 
-export default LoginForm;
+export default memo(LoginForm);
