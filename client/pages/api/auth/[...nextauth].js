@@ -5,6 +5,18 @@ import { connectToDatabase } from '../../../helpers/db-util';
 
 export default NextAuth({
   session: { jwt: true },
+  callbacks: {
+    session: async (session, user) => {
+      session.user.id = user.id;
+      return Promise.resolve(session);
+    },
+    jwt: async (token, user, account, profile, isNewUser) => {
+      if (user) {
+        token.id = user.id;
+      }
+      return Promise.resolve(token);
+    },
+  },
   pages: {
     newUser: '/index',
   },
@@ -42,6 +54,7 @@ export default NextAuth({
 
         return {
           email: user.email,
+          id: user._id,
         };
       },
     }),

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 // import Search from './Search';
 import { useSession, signOut } from 'next-auth/client';
+import Notification from './Notification';
 import ProtectedPage from './ProtectedPage';
+import { useNotificationsContextContext } from '../contexts/NotificationContext';
 
 export default function Header() {
   const [session, loading] = useSession();

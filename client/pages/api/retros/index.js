@@ -12,7 +12,7 @@ async function handler(req, res) {
     return res.status(401).json({ message: 'Not authenticated' });
   }
 
-  const userEmail = session.user.email;
+  const userId = session.user.id;
 
   let client;
 
@@ -50,7 +50,7 @@ async function handler(req, res) {
       improvementsAndReflections,
       tags,
       overallFeeling,
-      user: userEmail,
+      user: userId,
     };
 
     try {
@@ -79,6 +79,7 @@ async function handler(req, res) {
         database: process.env.RETROS_DB,
         collection: process.env.RETROS_COLLECTION,
         sort: { _id: -1 },
+        filter: { user: userId }, // filter retros that only belong to the logged in user
       });
 
       client.close();
