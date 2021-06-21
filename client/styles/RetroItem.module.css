@@ -11,6 +11,11 @@
   border-radius: 3px;
 }
 
+.RetroItemBoxShadow {
+  box-shadow: -4px 3px 17px 1px rgb(0 0 3 / 52%);
+  -webkit-box-shadow: -4px 3px 17px 1px rgb(0 0 3 / 52%);
+}
+
 .ViewRetro {
   margin-left: auto;
   background-color: red;

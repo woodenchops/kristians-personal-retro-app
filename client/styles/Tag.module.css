@@ -1,0 +1,36 @@
+.Feeling,
+.Tag {
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 3px;
+  display: inline-block;
+  text-align: center;
+}
+
+.Happy {
+  background-color: #74e874;
+}
+
+.Meh {
+  background-color: orange;
+}
+
+.Unhappy {
+  background-color: cornflowerblue;
+}
+
+.NoneProvided {
+  background-color: hotpink;
+}
+
+.Tag {
+  color: #fff;
+  background-color: #57565a;
+  margin: 0 5px;
+  display: inline-flex;
+  align-content: center;
+}
+
+.TagSpacing {
+  margin-right: 10px;
+}

@@ -2,8 +2,8 @@ import React from 'react';
 import { FaRegCalendarAlt, FaTags } from 'react-icons/fa';
 import Link from 'next/link';
 import styles from '../styles/RetroItem.module.css';
-// import FeelingStatus from './Feeling';
-// import TopicTag from './TopicTag';
+import FeelingStatus from './FeelingStatus';
+import TopicTag from './TopicTag';
 
 function RetroItem({ retro }) {
   const { title, slug, overview, date, user, tags, overallFeeling } = retro;
@@ -29,8 +29,8 @@ function RetroItem({ retro }) {
               <FaTags />
               Tags:
             </span>
-            {/* <FeelingStatus type={overallFeeling} />
-            <TopicTag topics={tags} /> */}
+            <FeelingStatus type={overallFeeling} />
+            <TopicTag topics={tags} />
           </span>
         )}
       </div>
