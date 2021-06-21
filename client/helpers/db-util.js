@@ -26,12 +26,13 @@ export async function getDocuments({
   collection,
   sort,
   filter = {},
+  projection = {},
 }) {
   const db = client.db(`${database}`);
 
   const documents = await db
     .collection(`${collection}`)
-    .find(filter)
+    .find(filter, projection)
     .sort(sort)
     .toArray();
 

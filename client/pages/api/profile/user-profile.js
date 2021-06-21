@@ -1,6 +1,5 @@
 import { getSession } from 'next-auth/client';
 import { connectToDatabase } from '../../../helpers/db-util';
-import { API_URL } from '../../../config/index';
 
 export async function handler(req, res) {
   if (req.method !== 'GET') {
@@ -32,8 +31,6 @@ export async function handler(req, res) {
   }
 
   client.close();
-
-  console.log('USER', user);
 
   return res
     .status(200)

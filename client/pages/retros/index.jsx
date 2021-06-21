@@ -32,6 +32,9 @@ function AllRetrosPage({ data }) {
               </p>
               <p>tags: {retro.tags}</p>
               <p>overallFeeling: {retro.overallFeeling}</p>
+              <Link href={`/retros/${retro.slug}`}>
+                <a>View Retro</a>
+              </Link>
             </article>
           ))}
       </ProtectedPage>

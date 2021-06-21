@@ -2,10 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/client';
 import Head from 'next/head';
-import Layout from '../components/Layout';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
-import { NotificationsProvider } from '../contexts/NotificationContext';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true); // create own loading state so that the page content doesnt display whilst loading

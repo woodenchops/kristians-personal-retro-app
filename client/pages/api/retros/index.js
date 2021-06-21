@@ -1,4 +1,5 @@
 import { getSession } from 'next-auth/client';
+import slugify from 'slugify';
 import {
   connectToDatabase,
   insertDocument,
@@ -40,6 +41,8 @@ async function handler(req, res) {
       return res.status(422).json({ message: 'Fill out all details, please' });
     }
 
+    const retroSlug = slugify(title, { lower: true });
+
     const newRetroDocumentToInsert = {
       title,
       overview,
@@ -51,6 +54,7 @@ async function handler(req, res) {
       tags,
       overallFeeling,
       user: userId,
+      slug: retroSlug,
     };
 
     try {
