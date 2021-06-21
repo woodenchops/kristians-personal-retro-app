@@ -8,27 +8,32 @@ function SingleRetroPage({ singleRetro, message }) {
     return <h1>{message}</h1>;
   }
 
+  const {
+    title,
+    slug,
+    overview,
+    date,
+    user,
+    techContributions,
+    teamContributions,
+    widerContributions,
+    improvementsAndReflections,
+    tags,
+    overallFeeling,
+  } = singleRetro;
+
   return (
     <div>
       <h1>Single Retro</h1>
       <p>{singleRetro.title}</p>
+      <p>Date: {date}</p>
+      <p>techContributions: {techContributions}</p>
+      <p>teamContributions: {teamContributions}</p>
+      <p>widerContributions: {widerContributions}</p>
+      <p>improvementsAndReflections: {improvementsAndReflections}</p>
     </div>
   );
 }
-
-// export async function getStaticPaths() {
-//   const res = await fetch(`${API_URL}/api/retro`);
-//   const retros = await res.json();
-
-//   const paths = retros.map((retro) => ({
-//     params: { retroId: retro.slug },
-//   }));
-
-//   return {
-//     paths,
-//     fallback: true,
-//   };
-// }
 
 export async function getServerSideProps(ctx) {
   const session = await getSession(ctx);

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AddRetrosForm from '../../components/AddRetroForm';
 import Layout from '../../components/Layout';
 import ProtectedPage from '../../components/ProtectedPage';
+import RetroItem from '../../components/RetroItem';
 import { API_URL } from '../../config/index';
 
 function AllRetrosPage({ data }) {
@@ -19,24 +20,7 @@ function AllRetrosPage({ data }) {
         </Link>
         {documents &&
           documents.length > 0 &&
-          documents.map((retro) => (
-            <article key={retro._id}>
-              <p>Title: {retro.title}</p>
-              <p>Overview: {retro.overview}</p>
-              <p>Date: {retro.date}</p>
-              <p>techContributions: {retro.techContributions}</p>
-              <p>teamContributions: {retro.teamContributions}</p>
-              <p>widerContributions: {retro.widerContributions}</p>
-              <p>
-                improvementsAndReflections: {retro.improvementsAndReflections}
-              </p>
-              <p>tags: {retro.tags}</p>
-              <p>overallFeeling: {retro.overallFeeling}</p>
-              <Link href={`/retros/${retro.slug}`}>
-                <a>View Retro</a>
-              </Link>
-            </article>
-          ))}
+          documents.map((retro) => <RetroItem key={retro._id} retro={retro} />)}
       </ProtectedPage>
     </div>
   );
