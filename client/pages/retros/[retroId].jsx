@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { API_URL } from '../../config';
 import ProtectedPage from '../../components/ProtectedPage';
@@ -27,6 +28,7 @@ function SingleRetroPage() {
     overview,
     date,
     user,
+    _id,
     techContributions,
     teamContributions,
     widerContributions,
@@ -39,12 +41,16 @@ function SingleRetroPage() {
     <ProtectedPage>
       <div>
         <h1>Single Retro</h1>
-        <p>{singleRetro.title}</p>
+        <p>Title: {title}</p>
         <p>Date: {date}</p>
         <p>techContributions: {techContributions}</p>
         <p>teamContributions: {teamContributions}</p>
         <p>widerContributions: {widerContributions}</p>
         <p>improvementsAndReflections: {improvementsAndReflections}</p>
+
+        <Link href={`/retros/edit/${router.query.retroId}`}>
+          <a>Edit Retro</a>
+        </Link>
       </div>
     </ProtectedPage>
   );

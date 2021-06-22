@@ -22,7 +22,7 @@ function AllRetrosPage() {
     <ProtectedPage>
       <div>
         <Link href='/retros/add-retro'>
-          <button>Add Retro</button>
+          <a>Add Retro</a>
         </Link>
         {retros &&
           retros.length > 0 &&

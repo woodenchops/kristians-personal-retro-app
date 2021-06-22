@@ -28,7 +28,7 @@ async function handler(req, res) {
           user: userId,
           slug: req.query.retroId,
         }, // filter retros that only belong to the logged in user
-        projection: { projection: { _id: 0, user: 0 } },
+        projection: { projection: { _id: 1, user: 0 } },
       });
 
       client.close();

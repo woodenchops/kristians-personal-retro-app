@@ -36,7 +36,7 @@ export async function handler(req, res) {
 
   if (!passwordsAreEqual) {
     client.close();
-    return res.status(422).json({ message: 'Pasaswords dont match' });
+    return res.status(422).json({ message: 'Passwords dont match' });
   }
 
   const hashedPassword = await hashPassword(newPassword);
