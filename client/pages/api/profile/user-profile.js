@@ -34,6 +34,6 @@ export async function handler(req, res) {
 
   return res
     .status(200)
-    .json({ message: 'Successfully found user profile', response: { user } });
+    .json({ message: 'Successfully found user profile', response: user });
 }
 export default handler;

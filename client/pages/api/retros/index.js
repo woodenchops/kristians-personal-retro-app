@@ -89,7 +89,7 @@ async function handler(req, res) {
       client.close();
       return res.status(201).json({
         message: 'Successfully fetched retros!',
-        response: { documents },
+        response: documents,
       });
     } catch (err) {
       return res.status(201).json({ message: 'Failed - Something went wrong' });

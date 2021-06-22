@@ -2,6 +2,7 @@ import { Provider } from 'next-auth/client';
 import Layout from '../components/Layout';
 import '../styles/globals.css';
 import { NotificationsProvider } from '../contexts/NotificationContext';
+
 import 'tailwindcss/tailwind.css';
 
 function MyApp({ Component, pageProps }) {

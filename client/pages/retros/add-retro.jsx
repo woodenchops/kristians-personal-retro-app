@@ -1,10 +1,13 @@
 import React from 'react';
 import AddRetrosForm from '../../components/AddRetroForm';
+import ProtectedPage from '../../components/ProtectedPage';
 
 function addRetroPage() {
   return (
     <div>
-      <AddRetrosForm />
+      <ProtectedPage>
+        <AddRetrosForm />
+      </ProtectedPage>
     </div>
   );
 }
