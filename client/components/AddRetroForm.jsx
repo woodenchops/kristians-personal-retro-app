@@ -119,7 +119,7 @@ function AddRetroForm() {
           required
         />
         <input
-          type='text'
+          type='date'
           name='date'
           placeholder='date'
           value={fieldValues.date}
