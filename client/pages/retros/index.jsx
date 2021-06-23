@@ -24,9 +24,11 @@ function AllRetrosPage() {
         <Link href='/retros/add-retro'>
           <a>Add Retro</a>
         </Link>
-        {retros &&
-          retros.length > 0 &&
-          retros.map((retro) => <RetroItem key={retro._id} retro={retro} />)}
+        {retros && retros.length > 0 ? (
+          retros.map((retro) => <RetroItem key={retro._id} retro={retro} />)
+        ) : (
+          <h3>No retros recorded</h3>
+        )}
       </div>
     </ProtectedPage>
   );

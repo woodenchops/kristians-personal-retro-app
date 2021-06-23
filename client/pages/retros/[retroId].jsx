@@ -20,7 +20,16 @@ function SingleRetroPage() {
   }, [data]);
 
   if (error) return <div>failed to load</div>;
-  if (!data || !singleRetro) return <div>loading...</div>;
+  if (!data) return <div>...Loading</div>;
+  if (!data || !singleRetro)
+    return (
+      <div>
+        <p>No retro found</p>
+        <Link href='/retros'>
+          <a>Go back</a>
+        </Link>
+      </div>
+    );
 
   const {
     title,
@@ -37,6 +46,29 @@ function SingleRetroPage() {
     overallFeeling,
   } = singleRetro[0];
 
+  const deleteRetroHandler = async (id) => {
+    const confirmDelete = confirm(
+      'Are you sure you want to delete this retro?'
+    );
+
+    if (confirmDelete) {
+      const res = await fetch(`/api/retros/delete/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const jsonRes = await res.json();
+
+      if (!res.ok) {
+        throw new Error(jsonRes.message || 'Something went wrong!');
+      }
+
+      router.push('/retros');
+    }
+  };
+
   return (
     <ProtectedPage>
       <div>
@@ -51,6 +83,8 @@ function SingleRetroPage() {
         <Link href={`/retros/edit/${router.query.retroId}`}>
           <a>Edit Retro</a>
         </Link>
+
+        <button onClick={() => deleteRetroHandler(_id)}>Delete Retro</button>
       </div>
     </ProtectedPage>
   );

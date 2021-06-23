@@ -36,7 +36,7 @@ async function handler(req, res) {
       if (documents && documents.length <= 0) {
         return res.status(422).json({
           message: 'No retro found!',
-          response: { documents: null },
+          response: null,
         });
       }
 

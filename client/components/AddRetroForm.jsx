@@ -1,3 +1,4 @@
+import router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useNotificationsContextContext } from '../contexts/NotificationContext';
 import Notification from './Notification';
@@ -80,6 +81,8 @@ function AddRetroForm() {
         tags: '',
         overallFeeling: '',
       });
+
+      router.push('/retros');
     } catch (error) {
       // setRequestStatus('error');
 
