@@ -1,7 +1,9 @@
 import React from 'react';
 import { FaRegCalendarAlt, FaTags } from 'react-icons/fa';
 import Link from 'next/link';
+import { RetroArticle } from './styled-components/retroitem-styles';
 import styles from '../styles/RetroItem.module.css';
+import { ViewRetroLink } from './styled-components/button-styles';
 import FeelingStatus from './FeelingStatus';
 import TopicTag from './TopicTag';
 
@@ -9,7 +11,7 @@ function RetroItem({ retro }) {
   const { title, slug, overview, date, user, tags, overallFeeling } = retro;
 
   return (
-    <article className={styles.RetroItem}>
+    <RetroArticle>
       <div className={styles.BorderHover} />
       <span className={styles.Date}>
         <FaRegCalendarAlt size='56' />
@@ -35,9 +37,9 @@ function RetroItem({ retro }) {
         )}
       </div>
       <Link href={`/retros/${slug}`}>
-        <a className={[styles.ViewRetro, 'PrimaryBtn'].join(' ')}>View Retro</a>
+        <ViewRetroLink buttonText='View Retro' />
       </Link>
-    </article>
+    </RetroArticle>
   );
 }
 

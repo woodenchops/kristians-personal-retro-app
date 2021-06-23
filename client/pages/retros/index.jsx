@@ -3,6 +3,7 @@ import Link from 'next/link';
 import useSWR from 'swr';
 import ProtectedPage from '../../components/ProtectedPage';
 import RetroItem from '../../components/RetroItem';
+import { StyledButton } from '../../components/styled-components/button-styles';
 import { API_URL } from '../../config/index';
 
 function AllRetrosPage() {
@@ -22,7 +23,7 @@ function AllRetrosPage() {
     <ProtectedPage>
       <div>
         <Link href='/retros/add-retro'>
-          <a>Add Retro</a>
+          <StyledButton>Add Retro</StyledButton>
         </Link>
         {retros && retros.length > 0 ? (
           retros.map((retro) => <RetroItem key={retro._id} retro={retro} />)
