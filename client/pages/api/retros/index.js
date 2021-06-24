@@ -86,10 +86,41 @@ async function handler(req, res) {
         filter: { user: userId }, // filter retros that only belong to the logged in user
       });
 
+      const { page } = req.query;
+      const { limit } = req.query;
+
+      const pageNumber = page;
+      const limitNumber = limit;
+
+      const startIndex = (pageNumber - 1) * limitNumber;
+      const endIndex = pageNumber * limitNumber;
+
+      const results = {};
+
+      if (startIndex > 0) {
+        results.previous = {
+          page: pageNumber - 1,
+          limit: limitNumber,
+        };
+      }
+
+      if (endIndex < documents.length) {
+        results.next = {
+          page: pageNumber + 1,
+          limit: limitNumber,
+        };
+      }
+
+      // if query params arent there, just return full array
+      results.data =
+        limitNumber && pageNumber
+          ? documents.slice(startIndex, endIndex)
+          : documents;
+
       client.close();
       return res.status(201).json({
         message: 'Successfully fetched retros!',
-        response: documents,
+        response: { retros: results.data, retroCount: documents.length },
       });
     } catch (err) {
       return res.status(201).json({ message: 'Failed - Something went wrong' });

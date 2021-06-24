@@ -1,10 +1,13 @@
+import Link from 'next/link';
 import React from 'react';
 
-function CustomLink({ className, buttonText, ...props }) {
+function CustomLink({ className, buttonText, href, ...props }) {
   return (
-    <button style={{ ...props }} className={className}>
-      {buttonText}
-    </button>
+    <Link href={href}>
+      <a style={{ ...props }} className={className}>
+        {buttonText}
+      </a>
+    </Link>
   );
 }
 

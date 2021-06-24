@@ -36,9 +36,8 @@ function RetroItem({ retro }) {
           </span>
         )}
       </div>
-      <Link href={`/retros/${slug}`}>
-        <ViewRetroLink buttonText='View Retro' />
-      </Link>
+
+      <ViewRetroLink href={`/retros/${slug}`} buttonText='View Retro' />
     </RetroArticle>
   );
 }

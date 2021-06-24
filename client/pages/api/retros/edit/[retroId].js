@@ -49,11 +49,6 @@ export async function handler(req, res) {
     .db()
     .collection(`${process.env.RETROS_COLLECTION}`);
 
-  if (!client) {
-    client.close();
-    return res.status(401).json({ message: 'could not connect to the db!' });
-  }
-
   const idString = req.query.retroId;
 
   const retro = await retrosCollection.findOne({

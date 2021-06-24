@@ -13,6 +13,7 @@ export default NextAuth({
     jwt: async (token, user, account, profile, isNewUser) => {
       if (user) {
         token.id = user.id;
+        token.name = user.name;
       }
       return Promise.resolve(token);
     },
@@ -55,6 +56,7 @@ export default NextAuth({
         return {
           email: user.email,
           id: user._id,
+          name: user.name,
         };
       },
     }),
