@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-// import Search from './Search';
 import { useSession, signOut } from 'next-auth/client';
+import Search from './Search';
 import Notification from './Notification';
 import ProtectedPage from './ProtectedPage';
+import styles from '../styles/Header.module.css';
 import { useNotificationsContextContext } from '../contexts/NotificationContext';
 
 export default function Header() {
@@ -17,7 +18,7 @@ export default function Header() {
   const NavItems = (
     <>
       {!loading && (
-        <header>
+        <header className={styles.header} style={{ marginBottom: '2rem' }}>
           <nav>
             <ul>
               {!session && (
@@ -46,6 +47,7 @@ export default function Header() {
               )}
             </ul>
           </nav>
+          <Search />
         </header>
       )}
     </>

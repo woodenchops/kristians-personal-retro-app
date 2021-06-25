@@ -4,6 +4,7 @@ import { getSession } from 'next-auth/client';
 import Head from 'next/head';
 import LoginForm from '../components/LoginForm';
 import SignUpForm from '../components/SignUpForm';
+import styles from '../styles/Intro.module.css';
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true); // create own loading state so that the page content doesnt display whilst loading
@@ -39,6 +40,12 @@ export default function Home() {
       </Head>
 
       <main>
+        <section className={styles.Intro}>
+          <h1>
+            Welcome to exp<span style={{ color: 'red' }}>AND!</span>
+          </h1>
+          <h3>view all things related to your personal development</h3>
+        </section>
         <section className='signupLoginForm flex'>{forms}</section>
       </main>
     </div>
