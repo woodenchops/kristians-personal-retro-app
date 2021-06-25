@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
 import Notification from './Notification';
 import { useNotificationsContextContext } from '../contexts/NotificationContext';
+import { StyledButton } from './styled-components/button-styles';
 
 function LoginForm() {
   const router = useRouter();
@@ -94,8 +95,8 @@ function LoginForm() {
             onChange={(e) => onChangeHandler(e)}
             required
           />
-          <div>
-            <button>Sign in</button>
+          <div style={{ marginTop: '1rem' }}>
+            <StyledButton>Sign in</StyledButton>
           </div>
         </form>
         {notification && (

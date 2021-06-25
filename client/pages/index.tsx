@@ -42,11 +42,11 @@ export default function Home() {
       <main className={styles.Wrap}>
         <section className={styles.Intro}>
           <h1>
-            Welcome to exp<span style={{ color: 'red' }}>AND!</span>
+            Welcome to exp<span style={{ color: 'red' }}>AND</span>!
           </h1>
           <h3>view all things related to your personal development</h3>
         </section>
-        <section className='signupLoginForm flex'>{forms}</section>
+        <section className={styles.SignupLoginForm}>{forms}</section>
       </main>
     </div>
   );

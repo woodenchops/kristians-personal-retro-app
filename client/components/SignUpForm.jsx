@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/client';
 import Notification from './Notification';
 import { useNotificationsContextContext } from '../contexts/NotificationContext';
+import { StyledButton } from './styled-components/button-styles';
 
 async function sendAddUserRequest(userDetails) {
   const res = await fetch('/api/auth/signup', {
@@ -138,8 +139,8 @@ function SignUpForm() {
           onChange={(e) => onChangeHandler(e)}
           required
         />
-        <div>
-          <button>Sign up</button>
+        <div style={{ marginTop: '1rem' }}>
+          <StyledButton>Sign up</StyledButton>
         </div>
       </form>
 
