@@ -81,7 +81,7 @@ function SignUpForm() {
           title: 'Signed up!',
           message: 'done!',
         });
-        router.replace('/profile');
+        router.replace('/retros');
       } catch (err) {
         setRequestError(err.message);
 

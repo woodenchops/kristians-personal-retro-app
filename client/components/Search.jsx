@@ -9,7 +9,7 @@ export default function Search() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    router.push(`/retros/search?term=${term}`);
+    router.push(`/retros/search?search=${term}`);
     setTerm('');
   };
 

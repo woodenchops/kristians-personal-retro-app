@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     getSession().then((session) => {
       if (session) {
-        router.replace('/profile');
+        router.replace('/retros');
       } else {
         setIsLoading(false);
       }
@@ -39,7 +39,7 @@ export default function Home() {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <main>
+      <main className={styles.Wrap}>
         <section className={styles.Intro}>
           <h1>
             Welcome to exp<span style={{ color: 'red' }}>AND!</span>

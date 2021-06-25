@@ -49,7 +49,7 @@ function LoginForm() {
           title: 'Success!',
           message: 'Successfully signed up!',
         });
-        router.replace('/profile');
+        router.replace('/retros');
       }
     } catch (err) {
       setRequestError(err.message);

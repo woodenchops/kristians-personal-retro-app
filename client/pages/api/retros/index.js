@@ -86,6 +86,33 @@ async function handler(req, res) {
         filter: { user: userId }, // filter retros that only belong to the logged in user
       });
 
+      if (req.query.search) {
+        const { search } = req.query;
+
+        // const searchResult = documents.find((doc) =>
+        //   doc.title.includes(search)
+        // );
+
+        // const formatQueryString = (doc, property) => {
+        //   return doc.property.toLowerCase().includes(search.toLowerCase())
+        // }
+
+        const searchResult = documents.filter(
+          (doc) =>
+            doc.title.toLowerCase().includes(search.toLowerCase()) ||
+            doc.overview.toLowerCase().includes(search.toLowerCase()) ||
+            doc.tags.toLowerCase().includes(search.toLowerCase()) ||
+            doc.overallFeeling.toLowerCase().includes(search.toLowerCase()) ||
+            doc.date.includes(search.replace(/\//g, '-')) // date filter doesnt work yet - need to import moment.js
+        );
+
+        client.close();
+        return res.status(201).json({
+          message: 'Successfully fetched retro!',
+          response: searchResult,
+        });
+      }
+
       const { page } = req.query;
       const { limit } = req.query;
 
