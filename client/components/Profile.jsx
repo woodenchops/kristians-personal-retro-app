@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Profile({ user }) {
-  const { name } = user;
+function Profile({ user = '' }) {
+  const { name } = user || 'No user';
 
   return (
     <div>

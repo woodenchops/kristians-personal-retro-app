@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useSession, signOut } from 'next-auth/client';
 import Search from './Search';
-import Notification from './Notification';
 import ProtectedPage from './ProtectedPage';
 import styles from '../styles/Header.module.css';
-import { useNotificationsContextContext } from '../contexts/NotificationContext';
+import { useDashBoardContextContext } from '../contexts/DashBoardContext';
 
 export default function Header() {
   const [session, loading] = useSession();
+
+  const { user } = useDashBoardContextContext();
 
   const logoutHandler = () => {
     signOut();
@@ -19,6 +19,7 @@ export default function Header() {
     <>
       {!loading && (
         <header className={styles.header} style={{ marginBottom: '2rem' }}>
+          <h3>Welcome, {user?.name}!</h3>
           <nav>
             <ul>
               {!session && (

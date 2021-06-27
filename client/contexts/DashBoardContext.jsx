@@ -1,25 +1,21 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import useSWR from 'swr';
 import { API_URL } from '../config';
 
 export const DashBoardContext = createContext();
 
 export const DashBoardProvider = ({ children }) => {
-  const [dashBoard, setDashBoard] = useState();
-
-  const { data, error } = useSWR(`${API_URL}/api/profile/user-profile`);
+  const [user, setUser] = useState();
 
   useEffect(() => {
-    if (data) {
-      setDashBoard(data?.response);
-    }
-  }, [data]);
-
-  if (error) return <div>failed to load</div>;
-  if (!data || !dashBoard) return <div>loading...</div>;
+    fetch(`${API_URL}/api/profile/user-profile`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUser(data?.response);
+      });
+  }, []);
 
   const store = {
-    dashBoard,
+    user,
   };
 
   return (

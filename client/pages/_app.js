@@ -9,13 +9,13 @@ import 'tailwindcss/tailwind.css';
 function MyApp({ Component, pageProps }) {
   return (
     <Provider session={pageProps.session}>
-      {/* <DashBoardProvider> */}
-      <Layout>
-        <NotificationsProvider>
-          <Component {...pageProps} />
-        </NotificationsProvider>
-      </Layout>
-      {/* </DashBoardProvider> */}
+      <DashBoardProvider>
+        <Layout>
+          <NotificationsProvider>
+            <Component {...pageProps} />
+          </NotificationsProvider>
+        </Layout>
+      </DashBoardProvider>
     </Provider>
   );
 }
