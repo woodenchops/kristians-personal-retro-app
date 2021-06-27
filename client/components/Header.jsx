@@ -15,11 +15,17 @@ export default function Header() {
     signOut();
   };
 
+  function capitaliseFirstLetter(string) {
+    return string && string.length > 0
+      ? string.charAt(0).toUpperCase() + string.slice(1)
+      : '';
+  }
+
   const NavItems = (
     <>
       {!loading && (
         <header className={styles.header} style={{ marginBottom: '2rem' }}>
-          <h3>Welcome, {user?.name}!</h3>
+          <h3>Welcome, {capitaliseFirstLetter(user?.name)}!</h3>
           <nav>
             <ul>
               {!session && (
