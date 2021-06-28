@@ -25,7 +25,7 @@ export default function Header() {
     <>
       {!loading && (
         <header className={styles.header} style={{ marginBottom: '2rem' }}>
-          <h3>Welcome, {capitaliseFirstLetter(user?.name)}!</h3>
+          <h3>{user && `Welcome, ${capitaliseFirstLetter(user?.name)}!`}</h3>
           <nav>
             <ul>
               {!session && (
