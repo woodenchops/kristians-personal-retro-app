@@ -44,6 +44,14 @@ function LoginForm() {
         password: fieldValues.password,
       });
 
+      if (result.error) {
+        NofiticationMessage({
+          status: 'error',
+          title: 'Error!',
+          message: result.error,
+        });
+      }
+
       if (!result.error) {
         NofiticationMessage({
           status: 'success',
@@ -53,13 +61,7 @@ function LoginForm() {
         router.replace('/retros');
       }
     } catch (err) {
-      setRequestError(err.message);
-
-      NofiticationMessage({
-        status: 'error',
-        title: 'Error!',
-        message: requestError,
-      });
+      console.log('ERR', err);
     }
 
     setFieldValues({

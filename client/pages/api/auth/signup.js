@@ -28,6 +28,13 @@ async function handler(req, res) {
       });
     }
 
+    if (!email.includes('@and.digital')) {
+      client.close();
+      return res.status(422).json({
+        message: 'Must be an AND email',
+      });
+    }
+
     const db = client.db();
 
     const existingUser = await db
