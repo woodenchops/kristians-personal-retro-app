@@ -14,6 +14,7 @@ async function handler(req, res) {
   }
 
   const userId = session.user.id;
+  const userName = session.user.name;
 
   let client;
 
@@ -54,6 +55,7 @@ async function handler(req, res) {
       tags,
       overallFeeling,
       user: userId,
+      userName,
       slug: retroSlug,
     };
 

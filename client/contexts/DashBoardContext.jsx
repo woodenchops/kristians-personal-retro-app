@@ -6,9 +6,14 @@ import { API_URL } from '../config';
 export const DashBoardContext = createContext();
 
 export const DashBoardProvider = ({ children }) => {
+  const router = useRouter();
+
   const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const { data, error } = useSWR(`${API_URL}/api/profile/user-profile`);
+
+  const { data, error } = useSWR(
+    router.route !== '/' ? `${API_URL}/api/profile/user-profile` : null
+  );
 
   useEffect(() => {
     if (data) {
@@ -23,7 +28,8 @@ export const DashBoardProvider = ({ children }) => {
   };
 
   if (error) return <div>failed to load</div>;
-  if (!data || isLoading) return <div>loading...</div>;
+  if ((!data || isLoading) && router.route !== '/')
+    return <div>loading...</div>;
 
   return (
     <DashBoardContext.Provider value={store}>
