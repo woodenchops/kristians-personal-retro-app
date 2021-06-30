@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "moment": "^2.29.1",
     "mongodb": "^3.6.9",
     "next": "10.2.0",
     "next-auth": "^3.26.1",

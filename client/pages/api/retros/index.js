@@ -1,5 +1,6 @@
 import { getSession } from 'next-auth/client';
 import slugify from 'slugify';
+import moment from 'moment';
 import {
   connectToDatabase,
   insertDocument,
@@ -14,7 +15,7 @@ async function handler(req, res) {
   }
 
   const userId = session.user.id;
-  const userName = session.user.name;
+  const username = session.user.name;
 
   let client;
 
@@ -55,7 +56,7 @@ async function handler(req, res) {
       tags,
       overallFeeling,
       user: userId,
-      userName,
+      username,
       slug: retroSlug,
     };
 
@@ -91,13 +92,10 @@ async function handler(req, res) {
       if (req.query.search) {
         const { search } = req.query;
 
-        // const searchResult = documents.find((doc) =>
-        //   doc.title.includes(search)
-        // );
-
-        // const formatQueryString = (doc, property) => {
-        //   return doc.property.toLowerCase().includes(search.toLowerCase())
-        // }
+        const formatedDate = (date) => {
+          const checkDate = moment(date).format('YYYY-DD-MM');
+          return checkDate;
+        };
 
         const searchResult = documents.filter(
           (doc) =>
@@ -105,7 +103,7 @@ async function handler(req, res) {
             doc.overview.toLowerCase().includes(search.toLowerCase()) ||
             doc.tags.toLowerCase().includes(search.toLowerCase()) ||
             doc.overallFeeling.toLowerCase().includes(search.toLowerCase()) ||
-            doc.date.includes(search.replace(/\//g, '-')) // date filter doesnt work yet - need to import moment.js
+            doc.date.includes(formatedDate(search)) // date filter doesnt work yet - need to import moment.js
         );
 
         client.close();

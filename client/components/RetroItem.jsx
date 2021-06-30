@@ -8,7 +8,7 @@ import FeelingStatus from './FeelingStatus';
 import TopicTag from './TopicTag';
 
 function RetroItem({ retro }) {
-  const { title, slug, overview, date, user, tags, overallFeeling } = retro;
+  const { title, slug, overview, date, tags, overallFeeling, username } = retro;
 
   return (
     <RetroArticle>
@@ -23,7 +23,7 @@ function RetroItem({ retro }) {
       <div className={styles.RetroInfo}>
         <p>Title: {title}</p>
         {overview && <p>Overview: {overview}</p>}
-        {user?.username && <p>Author: {user?.username}</p>}
+        {username && <p>Author: {username}</p>}
 
         {!overallFeeling && !tags ? null : (
           <span className={styles.TagSection}>
