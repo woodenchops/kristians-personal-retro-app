@@ -1,5 +1,12 @@
 import { MongoClient } from 'mongodb';
 
+/**
+ * Represents a book.
+ * @constructor
+ * @param {string} title - The title of the book.
+ * @param {string} author - The author of the book.
+ */
+
 export async function connectToDatabase({ database }) {
   const client = await MongoClient.connect(
     `mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@${process.env.CLUSTER}.mn1hk.mongodb.net/${database}?retryWrites=true&w=majority`,
