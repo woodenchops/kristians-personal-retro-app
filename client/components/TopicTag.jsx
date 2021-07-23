@@ -5,8 +5,10 @@ import styles from '../styles/Tag.module.css';
 function TopicTag({ topics }) {
   const formattedTopicTags =
     topics &&
-    topics.split(',').filter((x) => {
-      return x.length != '' && x != ',' && /[a-zA-Z]/g.test(x);
+    topics.split(',').filter((tag) => {
+      if (tag.length != '' && tag != ',' && /[a-zA-Z]/g.test(tag)) {
+        return tag.replace(/,/g, ' ').trim();
+      }
     });
 
   return (
@@ -17,7 +19,7 @@ function TopicTag({ topics }) {
           {formattedTopicTags.map((tag, idx) => (
             <span key={idx} className={[styles.Tag].join(' ')}>
               <FaHashtag />
-              {tag.replace(/,/g, ' ').trim()}
+              {tag}
             </span>
           ))}
         </span>
