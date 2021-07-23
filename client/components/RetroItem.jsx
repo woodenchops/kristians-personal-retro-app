@@ -5,6 +5,7 @@ import { RetroArticle } from './styled-components/retroitem-styles';
 import styles from '../styles/RetroItem.module.css';
 import { ViewRetroLink } from './styled-components/button-styles';
 import FeelingStatus from './FeelingStatus';
+import moment from 'moment';
 import TopicTag from './TopicTag';
 
 function RetroItem({ retro }) {
@@ -16,7 +17,8 @@ function RetroItem({ retro }) {
       <span className={styles.Date}>
         <FaRegCalendarAlt size='56' />
         <p>
-          Date :{` ${new Date(date).toLocaleDateString('en-GB') || 'No date'}`}
+          Date: {moment(date).format('DD/MM/YYYY') || 'No date'}
+          {/* Date :{` ${new Date(date).toLocaleDateString('en-GB') || 'No date'}`} */}
         </p>
       </span>
 

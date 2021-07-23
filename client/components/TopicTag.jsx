@@ -6,7 +6,7 @@ function TopicTag({ topics }) {
   const formattedTopicTags =
     topics &&
     topics.split(',').filter((tag) => {
-      if (tag.length != '' && tag != ',' && /[a-zA-Z]/g.test(tag)) {
+      if (tag.length != '' && tag != ',' && /[a-zA-Z0-9]/g.test(tag)) {
         return tag.replace(/,/g, ' ').trim();
       }
     });
