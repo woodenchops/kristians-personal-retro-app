@@ -11,13 +11,16 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    getSession().then((session) => {
-      if (session) {
-        router.replace('/retros');
-      } else {
-        setIsLoading(false);
-      }
-    });
+    getSession()
+      .then((session) => {
+        if (session) {
+          console.log('session', session);
+          router.replace('/retros');
+        } else {
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => console.log('error from Home page, yo', err.message));
   }, [router]);
 
   if (isLoading) {

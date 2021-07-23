@@ -2,9 +2,10 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
-  parser: '@typescript-eslint/parser',
+  parser: '@javascript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -12,7 +13,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@javascript-eslint', 'prettier'],
   rules: {
     'consistent-return': 'off',
     'no-console': 'warn',
