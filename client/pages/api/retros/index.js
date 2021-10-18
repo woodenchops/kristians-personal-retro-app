@@ -93,8 +93,7 @@ async function handler(req, res) {
         const { search } = req.query;
 
         const formatedDate = (date) => {
-          const checkDate = moment(date).format('YYYY-DD-MM');
-          console.log('date', checkDate);
+          const checkDate = moment(date, 'DD/MM/YYYY').format('YYYY-MM-DD');
           return checkDate;
         };
 
